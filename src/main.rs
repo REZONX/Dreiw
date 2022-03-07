@@ -74,10 +74,10 @@ async fn main() -> io::Result<()> {
         }
     );
     //构建app，配置 route
-    // let app = move || App::new().app_data(share_data.clone()).configure(general_routes);
+    let app = move || App::new().app_data(share_data.clone()).configure(general_routes);
 
     //运行 HTTP server
-    // HttpServer::new(app).bind("127.0.0.1:8080")?.run().await
+    HttpServer::new(app).bind("127.0.0.1:8080")?.run().await;
     Ok(())
 }
 
