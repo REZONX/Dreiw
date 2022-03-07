@@ -1,0 +1,19 @@
+[package]
+name = "movie-system"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = "4.0.1"
+actix-rt = "2.6.0"
+chrono = {version = "0.4.19",features = ["serde"]}
+serde = {version = "1.0.132",features = ["derive"]}
+dotenv = "0.15.0"
+sqlx = {version = "0.5.11",features = [
+    "postgres",
+    "runtime-tokio-rustls",
+    "macros",
+    "chrono",
+]}
