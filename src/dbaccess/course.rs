@@ -2,17 +2,20 @@ use actix_web::{web,HttpResponse};
 use sqlx::postgres::PgPool;
 use chrono::NaiveDateTime;
 use crate::state::AppState;
-use super::models::*;
+use crate::errors::WierdError;
+use crate::models::{course::Course};
 
-pub async fn get_courses_for_teacher_db(pool:&PgPool,teacher_id:i32) ->Vec<Course>{
+pub async fn get_courses_for_teacher_db(
+    pool:&PgPool,
+    teacher_id:i32
+) ->Result<Vec<Course>,WierdError>{
     let course_rows = sqlx::query!(r#"
         SELECT *
         FROM course
         WHERE teacher_id = $1
     "#,teacher_id)
     .fetch_all(pool)
-    .await
-    .unwrap();
+    .await?;
     let mut courses:Vec<Course> = vec![];
     for row in course_rows {
         courses.push(
@@ -24,7 +27,7 @@ pub async fn get_courses_for_teacher_db(pool:&PgPool,teacher_id:i32) ->Vec<Cours
             }
         )
     }
-    courses
+    Ok(courses)
 
 }
 

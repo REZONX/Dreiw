@@ -7,16 +7,18 @@ use std::sync::Mutex;
 use dotenv::dotenv;
 use std::env;
 
-mod routers;
-
+#[path ="./handlers/mod.rs"]
 mod handlers;
 
-mod state;
-
+#[path = "./models/mod.rs"]
 mod models;
 
-mod db_access;
+#[path ="./dbaccess/mod.rs"]
+mod dbaccess;
 
+
+mod routers;
+mod state;
 mod errors;
 //配置 route
 // pub fn general_routes(cfg:&mut web::ServiceConfig) {
